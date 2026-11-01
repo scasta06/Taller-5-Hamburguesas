@@ -55,9 +55,6 @@ private void cargar(Restaurante r,String i,String m,String c) throws Exception {
  for(String[] caso:casos){try{cargar(new Restaurante(),caso[0],caso[1],caso[2]);fail("Archivo ausente");}catch(IOException e){assertNotNull(e);}}
 }
 
-
-    // Escenario: cargar los tres archivos originales, sin solicitar sus rutas.
-    // Verificación: el menú, los ingredientes y los combos quedan disponibles.
     @Test
     void cargarDatosOriginales() throws Exception
     {
@@ -69,8 +66,6 @@ private void cargar(Restaurante r,String i,String m,String c) throws Exception {
         assertFalse(restaurante.getMenuCombos().isEmpty());
     }
 
-    // Escenario: existe una carpeta donde debe escribirse la factura.
-    // Acción: cerrar el pedido. Verificación: IOException y pedido conservado.
     @Test
     void falloDeGuardadoConservaPedido() throws Exception
     {
