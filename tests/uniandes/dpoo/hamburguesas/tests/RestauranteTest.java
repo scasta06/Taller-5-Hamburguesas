@@ -55,4 +55,49 @@ private void cargar(Restaurante r,String i,String m,String c) throws Exception {
  for(String[] caso:casos){try{cargar(new Restaurante(),caso[0],caso[1],caso[2]);fail("Archivo ausente");}catch(IOException e){assertNotNull(e);}}
 }
 
+
+    // Escenario: cargar los tres archivos originales, sin solicitar sus rutas.
+    // Verificación: el menú, los ingredientes y los combos quedan disponibles.
+    @Test
+    void cargarDatosOriginales() throws Exception
+    {
+        Restaurante restaurante = new Restaurante();
+        restaurante.cargarInformacionRestaurante(new File("data/ingredientes.txt"),
+                new File("data/menu.txt"), new File("data/combos.txt"));
+        assertFalse(restaurante.getIngredientes().isEmpty());
+        assertFalse(restaurante.getMenuBase().isEmpty());
+        assertFalse(restaurante.getMenuCombos().isEmpty());
+    }
+
+    // Escenario: existe una carpeta donde debe escribirse la factura.
+    // Acción: cerrar el pedido. Verificación: IOException y pedido conservado.
+    @Test
+    void falloDeGuardadoConservaPedido() throws Exception
+    {
+        Restaurante restaurante = new Restaurante();
+        restaurante.iniciarPedido("Ana", "Calle 1");
+        Pedido pedido = restaurante.getPedidoEnCurso();
+        File carpeta = new File("facturas");
+        if (!carpeta.exists())
+            assertTrue(carpeta.mkdir());
+        File destino = new File(carpeta, "factura_" + pedido.getIdPedido() + ".txt");
+        assertTrue(destino.mkdir(), "El escenario necesita un destino nuevo");
+        try
+        {
+            try
+            {
+                restaurante.cerrarYGuardarPedido();
+                fail("Debe lanzar IOException al intentar escribir en una carpeta");
+            }
+            catch (IOException e)
+            {
+                assertSame(pedido, restaurante.getPedidoEnCurso());
+                assertTrue(restaurante.getPedidos().isEmpty());
+            }
+        }
+        finally
+        {
+            assertTrue(destino.delete());
+        }
+    }
 }
