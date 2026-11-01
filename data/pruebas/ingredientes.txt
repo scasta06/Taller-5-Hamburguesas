@@ -1,0 +1,3 @@
+queso;1000
+
+tomate;500

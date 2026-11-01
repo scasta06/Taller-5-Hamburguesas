@@ -1,0 +1,7 @@
+Diseño de escenarios antes de implementar las pruebas
+ProductoMenu: nombre, precio y factura exacta; precio cero.
+ProductoAjustado: sin cambios, adiciones repetidas, eliminación sin rebaja y mezcla; factura con base, ajustes y total.
+Combo: suma con descuento 7%, sin descuento, descuento total, vacío y copia independiente de la lista; factura exacta.
+Pedido: datos del cliente, identificadores consecutivos, vacío, productos de los tres tipos, IVA 19%, factura completa, archivo idéntico y ruta imposible.
+Restaurante: estado inicial; carga válida con líneas vacías; archivos vacíos; ingrediente, producto y combo duplicados; producto faltante; costo y porcentaje inválidos; archivos ausentes en cada fase; apertura duplicada; cierre sin pedido; cierre con archivo e historial; varios pedidos y recuperación por identificador mediante el historial.
+Verificación: resultados esperados calculados a mano, assertEquals y assertTrue; excepciones mediante try/catch y fail; integración con archivos txt pequeños independientes.
